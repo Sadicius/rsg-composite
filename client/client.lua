@@ -251,7 +251,7 @@ end)
 
 AddEventHandler('onResourceStart', function(resource)
 	if resource == GetCurrentResourceName() then
-		if not playerSpawn then
+		if LocalPlayer.state['isLoggedIn'] then
 			TriggerEvent('RSGCore:Client:OnPlayerLoaded')
 			--print("onResourceStart")
 		end

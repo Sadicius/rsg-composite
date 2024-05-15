@@ -303,9 +303,11 @@ local StartCreateComposite = function(sHerbID, sCompositeHash, sPointCoords, sHe
 				if AreCompositeLootableEntityDefAssetsLoaded(compositeHash) then
 					local compositeId, vegModifierHandle = CreateComposite(index, compositeHash, herbCoords, sHeading, HerbID, f_4, pointCoords) --нужно пройтись 4 раза
 
-					Composite[pointCoords.xy].CompositeId[index] = compositeId						
-					Composite[pointCoords.xy].VegModifierHandle[index] = vegModifierHandle
-					Composite[pointCoords.xy].PointSpawn = true
+					if compositeId and compositeId > 0 then
+						Composite[pointCoords.xy].CompositeId[index] = compositeId						
+						Composite[pointCoords.xy].VegModifierHandle[index] = vegModifierHandle
+						Composite[pointCoords.xy].PointSpawn = true
+					end
 				end
 			end
 		end
@@ -318,9 +320,11 @@ local StartCreateComposite = function(sHerbID, sCompositeHash, sPointCoords, sHe
 				if AreCompositeLootableEntityDefAssetsLoaded(compositeHash) then
 					local compositeId, vegModifierHandle = CreateComposite(index, compositeHash, herbCoords, sHeading, HerbID, f_4, pointCoords) --нужно пройтись 4 раза
 
-					Composite[pointCoords.xy].CompositeId[index] = compositeId						
-					Composite[pointCoords.xy].VegModifierHandle[index] = vegModifierHandle
-					Composite[pointCoords.xy].PointSpawn = true
+					if compositeId and compositeId > 0 then
+						Composite[pointCoords.xy].CompositeId[index] = compositeId						
+						Composite[pointCoords.xy].VegModifierHandle[index] = vegModifierHandle
+						Composite[pointCoords.xy].PointSpawn = true
+					end
 				end
 			end
 		end
@@ -1280,7 +1284,7 @@ FindPicupCompositeAndCoords = function(PickUpPlayerCoords, Model, Pickup)
 				print("we ate: HerbID = " .. HerbID .. " num = " .. CompositeAmount .. " nearestCompositeId = " .. nearestCompositeId)
 				Eating(HerbID)
 				TriggerServerEvent("RSG:COMPOSITE:Eating", HerbID)
-				if not (HerbID == 11 or HerbID == 26) then
+				if not Config.compositeOptionsEat[HerbID].isPoison then
 					PlaySoundFrontend("Core_Full", "Consumption_Sounds", true, 0)
 				end
 			end
